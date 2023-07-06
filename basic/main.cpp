@@ -20,11 +20,15 @@ class Hoge {
             this->str = obj.str;
         }
         // move constructor
-        // Hoge(Hoge&& obj) {
-        //     std::cout << obj.str << ": move constructor is called." << std::endl;
-        //     this->str = std::move(obj.str);
-        // }
-        void print() { std::cout << this->str << std::endl; }
+        Hoge(Hoge&& obj) {
+            std::cout << obj.str << ": move constructor is called." << std::endl;
+            this->str = std::move(obj.str);
+        }
+        // destructor
+        ~Hoge() {
+            std::cout << this->str << ": destructor is called." << std::endl;
+        }
+        void print() { std::cout << this->str << ": print." << std::endl; }
 };
 
 int32_t add(int32_t const a, int32_t const b) {
@@ -130,4 +134,11 @@ int main() {
     for (auto& e: v_hoge) {
         e.print();
     }
+
+    auto ptr = make_unique<Hoge>(string("Unique"));
+    (*ptr).print();
+    auto ptr2 = move(ptr);
+    assert(ptr == nullptr);
+    assert(ptr2 != nullptr);
+    ptr2.get()->print();
 }
