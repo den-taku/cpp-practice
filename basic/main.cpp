@@ -7,6 +7,26 @@
 #include <string>
 #include <vector>
 
+class Hoge {
+    public:
+        std::string str;
+        // constructor
+        Hoge(std::string&& str) : str(str) {
+            std::cout << str << ": constructor is called." << std::endl;
+        }
+        // copy constructor
+        Hoge(const Hoge& obj) {
+            std::cout << obj.str << ": copy constructor is called." << std::endl;
+            this->str = obj.str;
+        }
+        // move constructor
+        // Hoge(Hoge&& obj) {
+        //     std::cout << obj.str << ": move constructor is called." << std::endl;
+        //     this->str = std::move(obj.str);
+        // }
+        void print() { std::cout << this->str << std::endl; }
+};
+
 int32_t add(int32_t const a, int32_t const b) {
     return a + b;
 }
@@ -93,4 +113,21 @@ int main() {
     unique_ptr<string> p(new string("hoge"));
     auto q = move(p);
     assert(*q == string("hoge") && p == nullptr);
+
+    vector<Hoge> v_hoge;
+    v_hoge.reserve(10);
+    cout << "push 1:" << endl;
+    v_hoge.push_back(Hoge(string("first")));
+    cout << "emplace 2:" << endl;
+    v_hoge.emplace_back(Hoge(string("second")));
+    cout << "emplace 3:" << endl;
+    v_hoge.emplace_back(Hoge(string("third")));
+    cout << "push 4:" << endl;
+    v_hoge.emplace_back(string("forth"));
+    cout << "emplace 5:" << endl;
+    v_hoge.emplace_back(string("fifth"));
+
+    for (auto& e: v_hoge) {
+        e.print();
+    }
 }
