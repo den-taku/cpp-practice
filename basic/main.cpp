@@ -1,11 +1,33 @@
 // https://qiita.com/legohasiri/items/549569c38044f1afa083
+// https://qiita.com/agate-pris/items/05948b7d33f3e88b8967
 #include <iostream>
 #include <array>
 #include <string>
 #include <vector>
 
-int32_t add(int32_t a, int32_t b) {
+int32_t add(int32_t const a, int32_t const b) {
     return a + b;
+}
+
+void print(int32_t const& a) {
+    std::cout << a << std::endl;
+}
+
+void twice_ref(int32_t& a) {
+    std::cout << "call by reference." << std::endl;
+    print(a);
+    a *= 2;
+    print(a);
+}
+
+bool twice(int32_t* a) {
+    std::cout << "call by pointer." << std::endl;
+    if (a == nullptr) {
+        std::cout << "null" << std::endl;
+        return false;
+    }
+    twice_ref(*a);
+    return true;
 }
 
 int main() {
@@ -30,9 +52,7 @@ int main() {
 
     vector<int32_t> vec;
     for (int i = 0; i < 10; i++) {
-        int32_t n;
-        cin >> n;
-        vec.push_back(n);
+        vec.push_back(i * i);
     }
     for (auto e: vec) {
         cout << e << ", ";
@@ -40,4 +60,12 @@ int main() {
     cout << endl;
 
     cout << add(234, 434) << endl;
+
+    int32_t v = 4;
+    twice(&v);
+    cout << v << endl;
+    twice(nullptr);
+
+    twice_ref(v);
+    cout << v << endl;
 }
