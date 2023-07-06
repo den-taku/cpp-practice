@@ -61,6 +61,16 @@ bool twice(int32_t* a) {
     return true;
 }
 
+std::tuple<int, int, int> multi(int x) {
+    return { x, x, x };
+}
+
+namespace one::two::three {
+    void four() {
+        print(4999999);
+    }
+}
+
 int main() {
     using namespace std;
     {
@@ -153,5 +163,16 @@ int main() {
         print(var);
         cap1();
         print(var);
+    }
+
+    {
+        auto [one, two, three] = multi(100);
+        print(one);
+        print(two);
+        print(three);
+    }
+
+    {
+        one::two::three::four();
     }
 }
