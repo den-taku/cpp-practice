@@ -1,6 +1,7 @@
 // https://qiita.com/legohasiri/items/549569c38044f1afa083
 // https://qiita.com/agate-pris/items/05948b7d33f3e88b8967
 // https://osyo-manga.hatenadiary.org/entry/20101117/1289958984
+// https://yohhoy.hatenablog.jp/entry/2012/12/15/120839
 #include <iostream>
 #include <array>
 #include <string>
@@ -88,4 +89,8 @@ int main() {
     string &&rvalue_str = std::move(dead_str);
     print(move(dead_str));
     print(move(rvalue_str));
+
+    unique_ptr<string> p(new string("hoge"));
+    auto q = move(p);
+    assert(*q == string("hoge") && p == nullptr);
 }
