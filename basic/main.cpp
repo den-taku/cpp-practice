@@ -1,5 +1,6 @@
 // https://qiita.com/legohasiri/items/549569c38044f1afa083
 // https://qiita.com/agate-pris/items/05948b7d33f3e88b8967
+// https://osyo-manga.hatenadiary.org/entry/20101117/1289958984
 #include <iostream>
 #include <array>
 #include <string>
@@ -11,6 +12,10 @@ int32_t add(int32_t const a, int32_t const b) {
 
 void print(int32_t const& a) {
     std::cout << a << std::endl;
+}
+
+void print(std::string&& str) {
+    std::cout << str << std::endl;
 }
 
 void twice_ref(int32_t& a) {
@@ -68,4 +73,19 @@ int main() {
 
     twice_ref(v);
     cout << v << endl;
+
+    int &&n = 10;
+    print(n);
+
+    print(string("String"));
+
+    int32_t dead = 10;
+    int32_t &&rvalue = std::move(dead);
+    print(dead);
+    print(rvalue);
+
+    string dead_str = "fdaj`";
+    string &&rvalue_str = std::move(dead_str);
+    print(move(dead_str));
+    print(move(rvalue_str));
 }
